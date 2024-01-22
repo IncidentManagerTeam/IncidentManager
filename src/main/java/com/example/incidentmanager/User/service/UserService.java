@@ -10,6 +10,12 @@ public interface UserService {
 
     public List<UserEntity> getAll();
 
+    public UserEntity create(UserEntity user);
+
+    public UserEntity update(int id, UserEntity user);
+
+    public void delete(int id);
+
     public void register(UserEntity user);
 
     public void login(String email, String password);

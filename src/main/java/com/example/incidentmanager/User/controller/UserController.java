@@ -1,16 +1,27 @@
 package com.example.incidentmanager.User.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
+import com.example.incidentmanager.User.core.UserAlreadyExistsException;
 import com.example.incidentmanager.User.domain.UserEntity;
 import com.example.incidentmanager.User.service.UserService;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
+import java.util.NoSuchElementException;
+
 
 
 
@@ -23,12 +34,12 @@ public class UserController {
 
     private UserService service;
 
-    @GetMapping("users")
+    @GetMapping("api/users")
     public List<UserEntity> getAllUser() {
         return this.service.getAll();
     }
     
-    @GetMapping("/profile")
+    @GetMapping("api/users")
     public String userProfile(Model model){
         // obtengo los datos del usuario logueado
         UserEntity usuarioLogueado = service.me();
@@ -38,12 +49,29 @@ public class UserController {
         return "userProfile";
     }
 
-    @PostMapping("/createUser")
-    public String createUser(@ModelAttribute("user") UserEntity user) {
-        service.register(user);
-        return "redirect:/users";
+    @PostMapping("api/users")
+    public UserEntity createUser(@RequestBody UserEntity user){
+        UserEntity newUser;
+        try {
+            newUser = service.create(user);
+        } catch (UserAlreadyExistsException exception) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Ya exist el correo para otro usuario");
+        }
+        return newUser;
     }
-    
 
+    @DeleteMapping("api/users/{id}")
+    public void deletUser(@PathVariable int id){
+        service.delete(id);
+    }
 
+    @PutMapping("api/users/{id}")
+    public UserEntity putMethodName(@PathVariable int id, @RequestBody UserEntity user) { 
+        try {
+            return service.update(id, user);
+        } catch (NoSuchElementException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El usuario no existe");
+        }       
+        
+    }
 }
