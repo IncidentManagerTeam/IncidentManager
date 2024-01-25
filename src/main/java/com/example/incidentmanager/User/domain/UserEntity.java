@@ -21,6 +21,10 @@ public class UserEntity {
     private Role role;
     private String password; 
 
+    protected UserEntity(){
+        
+    }
+
 
     public UserEntity(int id, String name, String surname, String email, String course, Role role, String password) {
         this.id = id;

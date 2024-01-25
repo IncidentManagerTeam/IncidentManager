@@ -15,8 +15,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository repository;
 
     @Override
-    public List<UserEntity> getAll() {
-        return users;
+    public Iterable<UserEntity> getAll() {
+        return repository.findAll();
     }
 
     @Override
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity create(UserEntity user) {
-        if (repository.existsByEmail(user.getEmail())) {
+        if (repository.existsByEmailIgnoreCase(user.getEmail())) {
             throw new UserAlreadyExistsException();
         }
         return repository.save(user);
