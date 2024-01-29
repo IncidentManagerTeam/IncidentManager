@@ -1,12 +1,16 @@
 package com.example.incidentmanager.User.service;
 
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 
 import com.example.incidentmanager.User.core.UserAlreadyExistsException;
 import com.example.incidentmanager.User.domain.UserEntity;
 import com.example.incidentmanager.User.domain.UserRepository;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private List<UserEntity> users = new ArrayList<>();
@@ -14,9 +18,14 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository repository;
 
+    public UserServiceImpl(UserRepository repository){
+        this.repository = repository;
+    }
+
+
     @Override
     public Iterable<UserEntity> getAll() {
-        return repository.findAll();
+        return this.repository.findAll();
     }
 
     @Override
@@ -27,6 +36,7 @@ public class UserServiceImpl implements UserService {
             users.add(user);
             System.out.println("Se ha registrado correctamente el usuario: " + user);
         }
+        
     }
 
     @Override

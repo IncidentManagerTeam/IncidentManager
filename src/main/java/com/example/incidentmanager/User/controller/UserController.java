@@ -35,16 +35,7 @@ public class UserController {
     public Iterable<UserEntity> getAllUser() {
         return this.service.getAll();
     }
-    
-    @GetMapping("api/users")
-    public String userProfile(Model model){
-        // obtengo los datos del usuario logueado
-        UserEntity usuarioLogueado = service.me();
-        // Agrega el usuario al modelo para que pueda ser mostrado en la vista
-        model.addAttribute("user", usuarioLogueado);
-        // Retorna el nombre de la vista (puede ser una página HTML o JSP)
-        return "userProfile";
-    }
+
 
     @PostMapping("api/users")
     public UserEntity createUser(@RequestBody UserEntity user){
