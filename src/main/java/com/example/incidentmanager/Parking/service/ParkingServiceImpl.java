@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.example.incidentmanager.Parking.domain.ParkingEntity;
 import com.example.incidentmanager.User.domain.UserEntity;
 
+@Service
 public class ParkingServiceImpl implements ParkingService {
     private List<ParkingEntity> _parkingRequests = new ArrayList<ParkingEntity>();
 
@@ -60,15 +63,15 @@ public class ParkingServiceImpl implements ParkingService {
     }
 
     @Override
-    public ParkingEntity create(UserEntity user, String licensePlate, int companion, String state, Date date) {
-        for (ParkingEntity parking : _parkingRequests) {
-            if (parking.getCompanion() == companion) {
+    public ParkingEntity create(UserEntity user,ParkingEntity parking) {
+        for (ParkingEntity parkings : _parkingRequests) {
+            if (parkings.getCompanion() == parking.getCompanion()) {
                 System.out.println("Error, ya existe una solicitud de parking para el usuario " + user);
                 return new ParkingEntity(null, -1, null, null, user);
             }
         }
-        ParkingEntity parking = new ParkingEntity(licensePlate, companion, state, date, user);
-        return parking;
+        ParkingEntity _parking = new ParkingEntity(parking.getLicensePlate(), parking.getCompanion(), parking.getState(), parking.getDate(), user);
+        return _parking;
     }
 
     // Comprueba de que la solicitud existe

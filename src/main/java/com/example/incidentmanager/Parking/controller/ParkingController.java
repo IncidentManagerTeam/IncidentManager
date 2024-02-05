@@ -1,10 +1,14 @@
 package com.example.incidentmanager.Parking.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.example.incidentmanager.Parking.domain.ParkingEntity;
 import com.example.incidentmanager.Parking.service.ParkingService;
 
+import java.util.NoSuchElementException;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,8 +37,12 @@ public class ParkingController {
 
     @PostMapping("/parkings/{id}")
     public ParkingEntity createOne(@PathVariable int id, @RequestBody ParkingEntity parking) {
-        return this.parkingSvc.create(parking.getUser(), parking.getLicensePlate(), parking.getCompanion(),
-                parking.getState(), parking.getDate());
+        try{
+            return this.parkingSvc.create(parking.getUser(),parking);
+        }catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,"Ya existe una solicitud para este usuario");
+        }
+        
     }
 
     @DeleteMapping("/parkings/{id}")
@@ -44,7 +52,12 @@ public class ParkingController {
 
     @PutMapping("parkings/{id}")
     public ParkingEntity updateParking(@PathVariable int id, @RequestBody ParkingEntity parking) {
-        return this.parkingSvc.update(id, parking.getLicensePlate(), parking.getCompanion(), parking.getState(),
-                parking.getDate());
+        try{
+            return this.parkingSvc.update(id, parking.getLicensePlate(), parking.getCompanion(), parking.getState(),
+            parking.getDate());
+        }catch(NoSuchElementException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No eexiste el usuario con el id");
+        }
+        
     }
 }

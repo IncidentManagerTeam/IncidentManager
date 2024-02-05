@@ -6,12 +6,14 @@ import com.example.incidentmanager.User.domain.UserEntity;
 
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
+@Entity(name="parking")
 public class ParkingEntity {
     @Id
     @NonNull
@@ -19,7 +21,7 @@ public class ParkingEntity {
     private int id;
 
     @NonNull
-    @Column(unique = true)
+    @Column(unique = true,updatable = false)
     private String licensePlate;
 
     @NonNull

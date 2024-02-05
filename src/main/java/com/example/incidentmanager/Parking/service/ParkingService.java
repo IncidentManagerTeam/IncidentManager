@@ -16,5 +16,5 @@ public interface ParkingService {
 
     public void delete(int id);
 
-    public ParkingEntity create(UserEntity user, String licensePlate, int companion, String state, Date date);
+    public ParkingEntity create(UserEntity user,ParkingEntity parking);
 }
