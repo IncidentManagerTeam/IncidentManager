@@ -1,14 +1,12 @@
 package com.example.incidentmanager.User.domain;
 
-import com.example.incidentmanager.Parking.domain.ParkingEntity;
 
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+
 
 @Entity
 public class UserEntity {
@@ -21,10 +19,7 @@ public class UserEntity {
     private String course;
     private Role role;
     private String password; 
-    //Relacion con la tabla parking
-    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL,optional = true)
-    @JoinColumn(name = "user_id")
-    private ParkingEntity parkingEntinty;
+
 
     public UserEntity(int id, String name, String surname, String email, String course, Role role, String password) {
         this.id = id;
