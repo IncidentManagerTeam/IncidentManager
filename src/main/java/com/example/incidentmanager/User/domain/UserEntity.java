@@ -1,24 +1,29 @@
 package com.example.incidentmanager.User.domain;
 
-
-
+import jakarta.annotation.Nonnull;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-
-@Entity
+@Entity(name = "user")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
     private String surname;
+    @Nonnull
+    @Column(unique = true)
     private String email;
     private String course;
     private Role role;
     private String password; 
+
+    protected UserEntity(){
+        
+    }
 
 
     public UserEntity(int id, String name, String surname, String email, String course, Role role, String password) {
