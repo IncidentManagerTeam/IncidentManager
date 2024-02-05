@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.incidentmanager.User.domain.UserEntity;
+import com.example.incidentmanager.User.domain.UserRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService{
@@ -20,7 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService{
     // Esto es para devolver el usuario 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-       UserEntity userEntity = this.repository.findByEmail(username).orElseThrow(
+       UserEntity userEntity = this.repository.findByEmailIgnoreCase(username).orElseThrow(
         () -> new UsernameNotFoundException(username)
        );
        UserDetails userDetails = User.builder()
