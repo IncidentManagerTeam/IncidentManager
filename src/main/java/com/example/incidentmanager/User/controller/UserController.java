@@ -8,7 +8,7 @@ import com.example.incidentmanager.User.domain.UserEntity;
 import com.example.incidentmanager.User.service.UserService;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,5 +61,4 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El usuario no existe");
         }       
     }
-
 }
