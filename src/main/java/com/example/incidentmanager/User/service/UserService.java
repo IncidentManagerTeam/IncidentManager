@@ -1,6 +1,5 @@
 package com.example.incidentmanager.User.service;
 
-import java.util.List;
 
 import com.example.incidentmanager.User.domain.UserEntity;
 
@@ -8,7 +7,13 @@ import com.example.incidentmanager.User.domain.UserEntity;
 
 public interface UserService {
 
-    public List<UserEntity> getAll();
+    public Iterable<UserEntity> getAll();
+
+    public UserEntity create(UserEntity user);
+
+    public UserEntity update(int id, UserEntity user);
+
+    public void delete(int id);
 
     public void register(UserEntity user);
 
