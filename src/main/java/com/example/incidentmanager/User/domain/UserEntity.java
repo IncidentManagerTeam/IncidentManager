@@ -1,5 +1,7 @@
 package com.example.incidentmanager.User.domain;
 
+
+
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,7 +20,8 @@ public class UserEntity {
     @Column(unique = true)
     private String email;
     private String course;
-    private Role role;
+    //private Role role;
+    private String role;
     private String password; 
 
     protected UserEntity(){
@@ -26,7 +29,7 @@ public class UserEntity {
     }
 
 
-    public UserEntity(int id, String name, String surname, String email, String course, Role role, String password) {
+    public UserEntity(int id, String name, String surname, String email, String course, String  role, String password) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -76,11 +79,11 @@ public class UserEntity {
         this.course = course;
     }
 
-    public Role getRole() {
+    public String  getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

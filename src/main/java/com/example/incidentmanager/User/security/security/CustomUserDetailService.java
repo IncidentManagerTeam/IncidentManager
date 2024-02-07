@@ -30,6 +30,4 @@ public class CustomUserDetailService implements UserDetailsService{
                                 .build();
         return userDetails;
     }
-
-
 }
