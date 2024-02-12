@@ -1,9 +1,9 @@
 spring:
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/db_incidents_manager
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/IncidentApp_db
     username: springuser
-    password: ThePassword
+    password: system
   jpa:
     hibernate:
       ddl-auto: update

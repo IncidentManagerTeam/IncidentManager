@@ -13,7 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
-@Entity(name="parking")
+@Entity(name = "parking")
 public class ParkingEntity {
     @Id
     @NonNull
@@ -21,7 +21,7 @@ public class ParkingEntity {
     private int id;
 
     @NonNull
-    @Column(unique = true,updatable = false)
+    @Column(unique = true, updatable = true)
     private String licensePlate;
 
     @NonNull
@@ -32,11 +32,10 @@ public class ParkingEntity {
     private Date date;
 
     @OneToOne(optional = false)
-    @JoinColumn(name = "user_id", unique = true)
+    @JoinColumn(name = "userId", unique = true,nullable = false)
     private UserEntity user;
 
-
-    public ParkingEntity(String licensePlate, int companion, String state, Date date,UserEntity user) {
+    public ParkingEntity(String licensePlate, int companion, String state, Date date, UserEntity user) {
         this.licensePlate = licensePlate;
         this.companion = companion;
         this.date = date;
