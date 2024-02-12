@@ -24,22 +24,22 @@ public class IncidentController {
     }
 
     @GetMapping("/incident/{id}")
-    public IncidentEntity getOne(@PathVariable int id, @RequestBody IncidentEntity incident) {
+    public IncidentEntity getOne(@PathVariable int id) {
         return this.incidentSvc.getOne(id);
     }
 
-    @PostMapping("/incident/{id}")
-    public IncidentEntity createOne(@PathVariable int id, @RequestBody IncidentEntity incident) {
-        return this.incidentSvc.create(incident.getImage(), incident.getDescription(), incident.getState(), incident.getUser());
-    
+    @PostMapping("/incident")
+    public IncidentEntity createOne(@RequestBody IncidentEntity incident) {
+        return this.incidentSvc.create(incident.getId(), incident.getImage(), incident.getDescription(), incident.getState(), incident.getUser());
     }
-    @PutMapping("/incident/{id}")
-    public IncidentEntity updateOne(@PathVariable int id, @RequestBody IncidentEntity incident) {
+    
+    @PutMapping("/incident")
+    public IncidentEntity updateOne(@RequestBody IncidentEntity incident) {
         return this.incidentSvc.update(incident.getId(), incident.getImage(), incident.getDescription(), incident.getState(), incident.getUser());
     }
     
     @DeleteMapping("/incident/{id}")
-    public void deleteOne(@PathVariable int id, @RequestBody IncidentEntity incident) {
+    public void deleteOne(@PathVariable int id) {
         this.incidentSvc.delete(id);
     }
 }

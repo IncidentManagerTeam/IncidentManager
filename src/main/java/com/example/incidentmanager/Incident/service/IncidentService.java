@@ -10,7 +10,7 @@ public interface IncidentService {
     
     public IncidentEntity getOne(int id);
     
-    public IncidentEntity create(byte[] image, String description, String state, UserEntity user);
+    public IncidentEntity create(int id, byte[] image, String description, String state, UserEntity user);
 
     public IncidentEntity update(int id, byte[] image, String description, String state, UserEntity user);
 
