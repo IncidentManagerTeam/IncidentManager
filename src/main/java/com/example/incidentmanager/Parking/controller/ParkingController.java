@@ -34,14 +34,14 @@ public class ParkingController {
         return this.parkingSvc.getOne(id);
     }
 
-    @PostMapping("api/parkings")
+    @PostMapping("/api/parkings")
     public ParkingEntity createOne(@RequestBody ParkingEntity parking) {
-        try{
-            return this.parkingSvc.create( parking );
-        }catch(Exception e){
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,"Ya existe una solicitud para este usuario");
+        try {
+            return this.parkingSvc.create(parking);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Ya existe una solicitud para este usuario");
         }
-        
+
     }
 
     @DeleteMapping("api/parkings/{id}")
