@@ -37,7 +37,7 @@ public class ParkingEntity {
     private Date date;
 
     @OneToOne(mappedBy = "parking")
-    UserEntity user;
+    UserEntity user_id;
 
    
 
@@ -84,6 +84,6 @@ public class ParkingEntity {
         this.date = date;
     }
     public UserEntity getUser() {
-        return user;
+        return user_id;
     }
 }

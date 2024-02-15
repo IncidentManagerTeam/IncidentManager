@@ -18,7 +18,7 @@ public class IncidentController {
         this.incidentSvc = service;
     }
 
-    @GetMapping("api/incidents")
+    @GetMapping("api/incident")
     public Iterable<IncidentEntity> getAll() {
         return this.incidentSvc.getAll();
     }

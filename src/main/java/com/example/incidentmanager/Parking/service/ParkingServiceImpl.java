@@ -71,7 +71,8 @@ public class ParkingServiceImpl implements ParkingService {
 
     @Override
     public ParkingEntity create(ParkingEntity parking) {
-            if (repository.existsByEmailIgnoreCase(parking.getUser().getEmail())) {
+        
+            if (repository.findByUser(parking.getUser())==null) {
                 throw new OneParkingEntityAlreadyExistForUser();
             }
         return repository.save(parking);

@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.example.incidentmanager.Parking.domain.ParkingEntity;
-import com.example.incidentmanager.User.domain.UserEntity;
 
 public interface ParkingService {
 
