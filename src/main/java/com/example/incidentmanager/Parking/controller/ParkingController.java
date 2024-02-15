@@ -20,28 +20,28 @@ public class ParkingController {
         this.parkingSvc = service;
     }
 
-    @GetMapping("/api/parkings")
+    @GetMapping("api/parkings")
     public Iterable<ParkingEntity> getAll() {
         return this.parkingSvc.getAll();
     }
 
-    @GetMapping("/parking/{id}")
+    @GetMapping("api/parking/{id}")
     public ParkingEntity getOne(@PathVariable int id, @RequestBody ParkingEntity parking) {
         return this.parkingSvc.getOne(id);
     }
 
-    @PostMapping("/parkings/{id}")
+    @PostMapping("api/parkings/{id}")
     public ParkingEntity createOne(@PathVariable int id, @RequestBody ParkingEntity parking) {
         return this.parkingSvc.create(parking.getUser(), parking.getLicensePlate(), parking.getCompanion(),
                 parking.getState(), parking.getDate());
     }
 
-    @DeleteMapping("/parkings/{id}")
+    @DeleteMapping("api/parkings/{id}")
     public void deleteOne(@PathVariable int id, @RequestBody ParkingEntity parking) {
         this.parkingSvc.delete(id);
     }
 
-    @PutMapping("parkings/{id}")
+    @PutMapping("api/parkings/{id}")
     public ParkingEntity updateParking(@PathVariable int id, @RequestBody ParkingEntity parking) {
         return this.parkingSvc.update(id, parking.getLicensePlate(), parking.getCompanion(), parking.getState(),
                 parking.getDate());

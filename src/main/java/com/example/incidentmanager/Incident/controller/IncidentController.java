@@ -18,27 +18,29 @@ public class IncidentController {
         this.incidentSvc = service;
     }
 
-    @GetMapping("/incident")
+    @GetMapping("api/incidents")
     public Iterable<IncidentEntity> getAll() {
         return this.incidentSvc.getAll();
     }
 
-    @GetMapping("/incident/{id}")
+    @GetMapping("api/incident/{id}")
     public IncidentEntity getOne(@PathVariable int id) {
         return this.incidentSvc.getOne(id);
     }
 
-    @PostMapping("/incident")
+    @PostMapping("api/incident")
     public IncidentEntity createOne(@RequestBody IncidentEntity incident) {
-        return this.incidentSvc.create(incident.getId(), incident.getImage(), incident.getDescription(), incident.getState(), incident.getUser());
+        return this.incidentSvc.create(incident.getId(), incident.getImage(), incident.getDescription(),
+                incident.getState(), incident.getUser());
     }
-    
-    @PutMapping("/incident")
+
+    @PutMapping("api/incident")
     public IncidentEntity updateOne(@RequestBody IncidentEntity incident) {
-        return this.incidentSvc.update(incident.getId(), incident.getImage(), incident.getDescription(), incident.getState(), incident.getUser());
+        return this.incidentSvc.update(incident.getId(), incident.getImage(), incident.getDescription(),
+                incident.getState(), incident.getUser());
     }
-    
-    @DeleteMapping("/incident/{id}")
+
+    @DeleteMapping("api/incident/{id}")
     public void deleteOne(@PathVariable int id) {
         this.incidentSvc.delete(id);
     }
