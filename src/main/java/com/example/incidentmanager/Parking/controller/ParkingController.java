@@ -20,7 +20,7 @@ public class ParkingController {
         this.parkingSvc = service;
     }
 
-    @GetMapping("/parkings")
+    @GetMapping("/api/parkings")
     public Iterable<ParkingEntity> getAll() {
         return this.parkingSvc.getAll();
     }
