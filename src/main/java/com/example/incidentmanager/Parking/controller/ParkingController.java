@@ -34,7 +34,7 @@ public class ParkingController {
         return this.parkingSvc.getOne(id);
     }
 
-    @PostMapping("/api/parkings")
+    @PostMapping("api/parkings")
     public ParkingEntity createOne(@RequestBody ParkingEntity parking) {
         try {
             return this.parkingSvc.create(parking);
