@@ -2,6 +2,10 @@ package com.example.incidentmanager.Parking.domain;
 
 import java.util.Date;
 
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
+
+import com.example.incidentmanager.User.domain.UserEntity;
+
 // import com.example.incidentmanager.User.domain.UserEntity;
 
 import io.micrometer.common.lang.NonNull;
@@ -18,6 +22,7 @@ public class ParkingEntity {
     @Id
     @NonNull
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private int id;
 
     @NonNull
@@ -31,6 +36,8 @@ public class ParkingEntity {
 
     private Date date;
 
+    @OneToOne(mappedBy = "parking")
+    UserEntity user;
 
     public ParkingEntity(String licensePlate, int companion, String state, Date date) {
         this.licensePlate = licensePlate;
