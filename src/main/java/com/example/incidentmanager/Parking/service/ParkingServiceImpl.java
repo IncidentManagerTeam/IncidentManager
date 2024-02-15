@@ -6,8 +6,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import org.springframework.stereotype.Service;
+
 import com.example.incidentmanager.Parking.domain.ParkingEntity;
 //import com.example.incidentmanager.User.domain.UserEntity;
+
 
 @Service
 public class ParkingServiceImpl implements ParkingService {
