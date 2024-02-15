@@ -7,6 +7,7 @@ import com.example.incidentmanager.User.domain.UserEntity;
 
 
 
+
 public interface ParkingRepository extends CrudRepository<ParkingEntity,Integer>{
         public Optional<ParkingEntity>findByUser(UserEntity user);
 }
