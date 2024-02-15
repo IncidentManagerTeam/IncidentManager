@@ -8,14 +8,18 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.stereotype.Service;
 
+import com.example.incidentmanager.Parking.core.OneParkingEntityAlreadyExistForUser;
 import com.example.incidentmanager.Parking.domain.ParkingEntity;
+import com.example.incidentmanager.Parking.domain.ParkingRepository;
+import com.example.incidentmanager.User.core.UserAlreadyExistsException;
 //import com.example.incidentmanager.User.domain.UserEntity;
+import com.example.incidentmanager.User.domain.UserEntity;
 
 
 @Service
 public class ParkingServiceImpl implements ParkingService {
     private List<ParkingEntity> _parkingRequests = new ArrayList<ParkingEntity>();
-
+    private ParkingRepository repository;
     @Override
     public List<ParkingEntity> getAll() {
         return _parkingRequests;
@@ -66,15 +70,11 @@ public class ParkingServiceImpl implements ParkingService {
     }
 
     @Override
-    public ParkingEntity create(String user,ParkingEntity parking) {
-        for (ParkingEntity parkings : _parkingRequests) {
-            if (parkings.getCompanion() == parking.getCompanion()) {
-                System.out.println("Error, ya existe una solicitud de parking para el usuario " + user);
-                return new ParkingEntity(null, -1, null, null);
+    public ParkingEntity create(ParkingEntity parking) {
+            if (repository.existsByEmailIgnoreCase(parking.getUser().getEmail())) {
+                throw new OneParkingEntityAlreadyExistForUser();
             }
-        }
-        ParkingEntity _parking = new ParkingEntity(parking.getLicensePlate(), parking.getCompanion(), parking.getState(), parking.getDate());
-        return _parking;
+        return repository.save(parking);
     }
 
     // Comprueba de que la solicitud existe

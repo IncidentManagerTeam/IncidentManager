@@ -39,6 +39,8 @@ public class ParkingEntity {
     @OneToOne(mappedBy = "parking")
     UserEntity user;
 
+   
+
     public ParkingEntity(String licensePlate, int companion, String state, Date date) {
         this.licensePlate = licensePlate;
         this.companion = companion;
@@ -81,5 +83,7 @@ public class ParkingEntity {
     public void setDate(Date date) {
         this.date = date;
     }
-
+    public UserEntity getUser() {
+        return user;
+    }
 }
