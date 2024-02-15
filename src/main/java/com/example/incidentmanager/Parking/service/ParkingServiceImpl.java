@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.incidentmanager.Parking.domain.ParkingEntity;
-import com.example.incidentmanager.User.domain.UserEntity;
+//import com.example.incidentmanager.User.domain.UserEntity;
 
 @Service
 public class ParkingServiceImpl implements ParkingService {
@@ -29,7 +29,7 @@ public class ParkingServiceImpl implements ParkingService {
             }
         }
         System.out.println("Ha ocurrido un error con la obtencion de la solicitud");
-        return new ParkingEntity(null, id, null, null, new UserEntity(-1, null, null, null, null, null, null));
+        return new ParkingEntity(null, id, null, null);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ParkingServiceImpl implements ParkingService {
             }
         }
         System.out.println("Ha ocurrido un error con la obtencion de la solicitud");
-        return new ParkingEntity(null, id, null, null, new UserEntity(-1, null, null, null, null, null, null));
+        return new ParkingEntity(null, id, null, null);
     }
 
     @Override
@@ -63,14 +63,14 @@ public class ParkingServiceImpl implements ParkingService {
     }
 
     @Override
-    public ParkingEntity create(UserEntity user,ParkingEntity parking) {
+    public ParkingEntity create(String user,ParkingEntity parking) {
         for (ParkingEntity parkings : _parkingRequests) {
             if (parkings.getCompanion() == parking.getCompanion()) {
                 System.out.println("Error, ya existe una solicitud de parking para el usuario " + user);
-                return new ParkingEntity(null, -1, null, null, user);
+                return new ParkingEntity(null, -1, null, null);
             }
         }
-        ParkingEntity _parking = new ParkingEntity(parking.getLicensePlate(), parking.getCompanion(), parking.getState(), parking.getDate(), user);
+        ParkingEntity _parking = new ParkingEntity(parking.getLicensePlate(), parking.getCompanion(), parking.getState(), parking.getDate());
         return _parking;
     }
 

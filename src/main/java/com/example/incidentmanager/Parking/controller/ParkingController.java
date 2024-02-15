@@ -37,7 +37,8 @@ public class ParkingController {
     @PostMapping("/parkings/{id}")
     public ParkingEntity createOne(@PathVariable int id, @RequestBody ParkingEntity parking) {
         try{
-            return this.parkingSvc.create(parking.getUser(),parking);
+            //TODO EDITAR
+            return parking;
         }catch(Exception e){
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,"Ya existe una solicitud para este usuario");
         }
@@ -51,12 +52,12 @@ public class ParkingController {
 
     @PutMapping("parkings/{id}")
     public ParkingEntity updateParking(@PathVariable int id, @RequestBody ParkingEntity parking) {
-        try{
+        try {
             return this.parkingSvc.update(id, parking.getLicensePlate(), parking.getCompanion(), parking.getState(),
-            parking.getDate());
-        }catch(NoSuchElementException e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No eexiste el usuario con el id");
+                    parking.getDate());
+        } catch (NoSuchElementException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No eexiste el usuario con el id");
         }
-        
+
     }
 }

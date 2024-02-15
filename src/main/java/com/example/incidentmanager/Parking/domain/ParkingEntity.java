@@ -2,7 +2,7 @@ package com.example.incidentmanager.Parking.domain;
 
 import java.util.Date;
 
-import com.example.incidentmanager.User.domain.UserEntity;
+// import com.example.incidentmanager.User.domain.UserEntity;
 
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Column;
@@ -31,16 +31,12 @@ public class ParkingEntity {
 
     private Date date;
 
-    @OneToOne(optional = false)
-    @JoinColumn(name = "userId", unique = true,nullable = false)
-    private UserEntity user;
 
-    public ParkingEntity(String licensePlate, int companion, String state, Date date, UserEntity user) {
+    public ParkingEntity(String licensePlate, int companion, String state, Date date) {
         this.licensePlate = licensePlate;
         this.companion = companion;
         this.date = date;
         this.state = state;
-        this.user = user;
     }
 
     public int getId() {
@@ -79,7 +75,4 @@ public class ParkingEntity {
         this.date = date;
     }
 
-    public UserEntity getUser() {
-        return user;
-    }
 }
