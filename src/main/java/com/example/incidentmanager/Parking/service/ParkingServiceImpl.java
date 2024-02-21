@@ -71,11 +71,10 @@ public class ParkingServiceImpl implements ParkingService {
 
     @Override
     public ParkingEntity create(ParkingEntity parking) {
-        
-            if (repository.findByUser(parking.getUser())==null) {
-                throw new OneParkingEntityAlreadyExistForUser();
+            if (repository.findByUser(parking.getUser())!=null) {
+                return repository.save(parking);
             }
-        return repository.save(parking);
+            throw new OneParkingEntityAlreadyExistForUser();
     }
 
     // Comprueba de que la solicitud existe
