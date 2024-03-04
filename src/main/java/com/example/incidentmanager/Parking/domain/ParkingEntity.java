@@ -14,7 +14,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
 @Entity(name = "parking")
@@ -36,16 +35,17 @@ public class ParkingEntity {
 
     private Date date;
 
-    @OneToOne(mappedBy = "parking")
+    @OneToOne()
     UserEntity user;
 
    
 
-    public ParkingEntity(String licensePlate, int companion, String state, Date date) {
+    public ParkingEntity(String licensePlate, int companion, String state, Date date,UserEntity user) {
         this.licensePlate = licensePlate;
         this.companion = companion;
         this.date = date;
         this.state = state;
+        this.user = user;
     }
 
     public int getId() {
@@ -85,5 +85,13 @@ public class ParkingEntity {
     }
     public UserEntity getUser() {
         return user;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 }

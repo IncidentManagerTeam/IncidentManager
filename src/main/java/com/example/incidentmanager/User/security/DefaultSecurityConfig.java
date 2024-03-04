@@ -24,6 +24,8 @@ public class DefaultSecurityConfig {
         http.authorizeHttpRequests(
             (requests) -> requests.requestMatchers(HttpMethod.POST, "/register").permitAll()
                                     .requestMatchers("/csrf").permitAll()
+                                    .requestMatchers("/register").permitAll()
+                                    .requestMatchers("/login").permitAll()
                                     .anyRequest().authenticated()
         ).httpBasic(Customizer.withDefaults());
         return http.build();

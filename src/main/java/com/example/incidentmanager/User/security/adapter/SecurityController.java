@@ -4,12 +4,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfToken;
 
+import com.example.incidentmanager.User.domain.User;
 import com.example.incidentmanager.User.domain.UserEntity;
 import com.example.incidentmanager.User.service.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
@@ -33,6 +35,10 @@ public class SecurityController {
     @GetMapping("/csrf")
     public CsrfToken getCsrfToken(CsrfToken token){
         return token;
+    }
+    @GetMapping("/login")
+    public UserEntity login(@RequestBody User entity) {
+        return service.login(entity.getEmail(),entity.getPassword());
     }
     
 }

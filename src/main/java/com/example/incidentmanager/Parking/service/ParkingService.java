@@ -1,13 +1,13 @@
 package com.example.incidentmanager.Parking.service;
 
 import java.util.Date;
-import java.util.List;
 
+import com.example.incidentmanager.Parking.domain.ParkingDTO;
 import com.example.incidentmanager.Parking.domain.ParkingEntity;
 
 public interface ParkingService {
 
-    public List<ParkingEntity> getAll();
+    public Iterable<ParkingEntity> getAll();
 
     public ParkingEntity getOne(int id);
 
@@ -15,5 +15,5 @@ public interface ParkingService {
 
     public void delete(int id);
 
-    public ParkingEntity create(ParkingEntity parking);
+    public ParkingEntity create(ParkingDTO parking);
 }

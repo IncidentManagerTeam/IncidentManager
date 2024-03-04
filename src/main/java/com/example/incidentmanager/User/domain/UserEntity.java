@@ -29,11 +29,6 @@ public class UserEntity {
     private Role role;
     private String password; 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @NotFound(action=NotFoundAction.IGNORE)
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
-    private ParkingEntity parking;
-
     protected UserEntity(){
         
     }

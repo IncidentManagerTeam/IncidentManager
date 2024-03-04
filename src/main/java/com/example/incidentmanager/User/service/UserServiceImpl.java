@@ -1,12 +1,14 @@
 package com.example.incidentmanager.User.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 import com.example.incidentmanager.User.core.UserAlreadyExistsException;
+import com.example.incidentmanager.User.domain.User;
 import com.example.incidentmanager.User.domain.UserEntity;
 import com.example.incidentmanager.User.domain.UserRepository;
 
@@ -34,20 +36,23 @@ public class UserServiceImpl implements UserService {
             System.out.println("El ususario ya existe");
         }else{
             users.add(user);
+            repository.save(user);
             System.out.println("Se ha registrado correctamente el usuario: " + user);
         }
         
     }
 
     @Override
-    public void login(String email, String password) {
+    public UserEntity login(String email, String password) {
         for (UserEntity user : users) {
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
                 userLogin = user;
                 System.out.println("Inicio de sesión:" + user.getEmail());
+                return user;
             }
         }
         System.out.println("Inicio de sesión no exitoso");
+        return new UserEntity(-1, "", "", "", "", null, "");
     }
 
     @Override
@@ -63,6 +68,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity me() {
         return userLogin;
+    }
+    public UserEntity getOne(int id){
+        return this.repository.findById(id).get();
     }
 
     @Override

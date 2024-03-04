@@ -3,8 +3,11 @@ package com.example.incidentmanager.Parking.controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.incidentmanager.Parking.domain.ParkingDTO;
 import com.example.incidentmanager.Parking.domain.ParkingEntity;
 import com.example.incidentmanager.Parking.service.ParkingService;
+import com.example.incidentmanager.User.core.UserAlreadyExistsException;
+import com.example.incidentmanager.User.domain.UserEntity;
 
 import java.util.NoSuchElementException;
 
@@ -29,17 +32,18 @@ public class ParkingController {
         return this.parkingSvc.getAll();
     }
 
-    @GetMapping("api/parking/{id}")
-    public ParkingEntity getOne(@PathVariable int id, @RequestBody ParkingEntity parking) {
+    @GetMapping("api/parkings/{id}")
+    public ParkingEntity getOne(@PathVariable(name = "id") int id) {
         return this.parkingSvc.getOne(id);
     }
 
     @PostMapping("api/parkings")
-    public ParkingEntity createOne(@RequestBody ParkingEntity parking) {
+    public ParkingEntity createOne(@RequestBody ParkingDTO parking) {
         try {
-            return this.parkingSvc.create(parking);
+            var parkings = this.parkingSvc.create(parking);
+            return parkings;
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Ya existe una solicitud para este usuario");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Ya existe una solicitud para este usuario");       
         }
 
     }

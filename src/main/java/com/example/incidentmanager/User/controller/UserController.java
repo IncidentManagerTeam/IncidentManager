@@ -54,7 +54,7 @@ public class UserController {
     }
 
     @PutMapping("api/users/{id}")
-    public UserEntity putMethodName(@PathVariable int id, @RequestBody UserEntity user) { 
+    public UserEntity getOneUser(@PathVariable int id, @RequestBody UserEntity user) { 
         try {
             return service.update(id, user);
         } catch (NoSuchElementException e) {
