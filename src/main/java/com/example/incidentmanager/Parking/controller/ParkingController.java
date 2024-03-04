@@ -49,15 +49,14 @@ public class ParkingController {
     }
 
     @DeleteMapping("api/parkings/{id}")
-    public void deleteOne(@PathVariable int id, @RequestBody ParkingEntity parking) {
+    public void deleteOne(@PathVariable int id) {
         this.parkingSvc.delete(id);
     }
 
     @PutMapping("api/parkings/{id}")
-    public ParkingEntity updateParking(@PathVariable int id, @RequestBody ParkingEntity parking) {
+    public ParkingEntity updateParking(@PathVariable int id, @RequestBody ParkingDTO parking) {
         try {
-            return this.parkingSvc.update(id, parking.getLicensePlate(), parking.getCompanion(), parking.getState(),
-                    parking.getDate());
+            return this.parkingSvc.update(id,parking);
         } catch (NoSuchElementException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No eexiste el usuario con el id");
         }

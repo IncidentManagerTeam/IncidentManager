@@ -12,7 +12,7 @@ import com.example.incidentmanager.User.domain.UserEntity;
 @Service
 public class IncidentServiceImpl implements IncidentService {
     private List<IncidentEntity> _incidentRequest = new ArrayList<IncidentEntity>();
-
+    
     @Override
     public List<IncidentEntity> getAll() {
         return _incidentRequest;

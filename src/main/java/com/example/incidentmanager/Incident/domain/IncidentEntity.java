@@ -26,8 +26,7 @@ public class IncidentEntity {
     @NonNull
     private String state;
 
-    @OneToOne(optional = false)
-    @JoinColumn(name = "user_id", unique = true)
+    @OneToOne
     private UserEntity user;
 
 

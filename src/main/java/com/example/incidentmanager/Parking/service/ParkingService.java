@@ -11,7 +11,7 @@ public interface ParkingService {
 
     public ParkingEntity getOne(int id);
 
-    public ParkingEntity update(int id,String licensePlate, int companion, String state, Date date);
+    public ParkingEntity update(int id,ParkingDTO parking);
 
     public void delete(int id);
 

@@ -2,6 +2,7 @@ package com.example.incidentmanager.Parking.domain;
 
 import java.util.Date;
 
+import org.hibernate.annotations.NotFound;
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 
 import com.example.incidentmanager.User.domain.UserEntity;
@@ -35,11 +36,11 @@ public class ParkingEntity {
 
     private Date date;
 
-    @OneToOne()
+    @OneToOne
     UserEntity user;
+    public ParkingEntity(){
 
-   
-
+    }
     public ParkingEntity(String licensePlate, int companion, String state, Date date,UserEntity user) {
         this.licensePlate = licensePlate;
         this.companion = companion;
