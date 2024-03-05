@@ -1,7 +1,6 @@
 package com.example.incidentmanager.Parking.domain;
 
 import java.util.Date;
-
 import io.micrometer.common.lang.NonNull;
 
 public class ParkingDTO {

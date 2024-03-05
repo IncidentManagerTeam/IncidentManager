@@ -1,9 +1,5 @@
 package com.example.incidentmanager.User.service;
 
-
-import java.util.Optional;
-
-import com.example.incidentmanager.User.domain.User;
 import com.example.incidentmanager.User.domain.UserEntity;
 
 

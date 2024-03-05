@@ -1,55 +1,67 @@
 package com.example.incidentmanager.Incident.service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.server.ResponseStatusException;
+import com.example.incidentmanager.Incident.domain.IncidentDTO;
 import com.example.incidentmanager.Incident.domain.IncidentEntity;
-import com.example.incidentmanager.User.domain.UserEntity;
+import com.example.incidentmanager.Incident.domain.IncidentRepository;
+import com.example.incidentmanager.User.service.UserService;
 
 @Service
 public class IncidentServiceImpl implements IncidentService {
-    private List<IncidentEntity> _incidentRequest = new ArrayList<IncidentEntity>();
-    
+
+    private IncidentRepository repository;
+    private UserService userSvc;
+
+    IncidentServiceImpl(IncidentRepository repository,UserService userSvc) {
+        this.repository = repository;
+        this.userSvc = userSvc;
+    }
+
     @Override
-    public List<IncidentEntity> getAll() {
-        return _incidentRequest;
+    public Iterable<IncidentEntity> getAll() {
+        var result = repository.findAll();
+        return result;
     }
 
     @Override
     public IncidentEntity getOne(int id) {
-        for (IncidentEntity incident : _incidentRequest) {
-            if (incident.getId() == id) {
-                return incident; // Retorna el incidente si se encuentra en la lista
+        var validator = requestExists(id);
+        if (validator) {
+            return repository.findById(id).get();
+        }
+        else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se ha encontrado ningun incidente con id: " + id);
+    }
+
+    @Override
+    public IncidentEntity create(IncidentDTO incident, byte[] image) {
+        var validator = this.userSvc.getOne(incident.getUserId());
+        String imagen = "";
+        if (validator != null) {
+            try {
+                IncidentEntity incidentEntity = new IncidentEntity(imagen,incident.getDescription(), incident.getState(), validator, incident.getClassroom(),incident.getTitle());
+                return repository.save(incidentEntity);
+            }catch(Exception e){
+                throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Ya existe una solicitud con al misma id");
             }
         }
-        System.out.println("No se encontró ningún incidente con el ID proporcionado: " + id);
-        // Retorna null si no se encuentra el incidente
-        return null;
+        else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se ha encontrado ningun usuario asociado ");
     }
 
     @Override
-    public IncidentEntity create(int id, byte[] image, String description, String state, UserEntity user) {
-        IncidentEntity incident = new IncidentEntity(id, image, description, state, user);
-        return incident;
-    }
-
-
-    @Override
-    public IncidentEntity update(int id, byte[] image, String description, String state, UserEntity user) {
+    public IncidentEntity update(int id, IncidentDTO incident, byte[] image) {
         boolean exist = requestExists(id);
         if (exist) {
-            for (IncidentEntity incident : _incidentRequest) {
-                if (incident.getId() == id) {
-                    incident.setImage(image);
-                    incident.setDescription(description);
-                    incident.setState(state);
-                    // Retorna el incidente modificado si se encontró y actualizó correctamente
-                    return incident;
-                }
-            }
+            IncidentEntity _incident = repository.findById(id).get();
+            _incident.setImage("");
+            _incident.setDescription(incident.getDescription());
+            _incident.setState(incident.getState());
+            _incident.setClassroom(incident.getClassroom());
+            _incident.setTitle(incident.getTitle());
+            repository.save(_incident);
+            return _incident;
         }
         System.out.println("No se encontró ningún incidente con el ID proporcionado: " + id);
         // Retorna null si no se encuentra el incidente a modificar
@@ -60,27 +72,25 @@ public class IncidentServiceImpl implements IncidentService {
     public void delete(int id) {
         boolean exist = requestExists(id);
         if (exist) {
-            Iterator<IncidentEntity> iterator = _incidentRequest.iterator();
-            while (iterator.hasNext()) {
-                IncidentEntity incident = iterator.next();
-                if (incident.getId() == id) {
-                    iterator.remove();
-                    return; // Termina el método después de eliminar el incidente
-                }
-            }
+            repository.delete(repository.findById(id).get());
+
         } else {
-            System.out.println("No existe el incidente con ID: " + id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "No existe ningun incidente con el id proporcionado");
         }
     }
 
     // Comprueba si el incidente existe en la lista
     private boolean requestExists(int id) {
-        for (IncidentEntity incident : _incidentRequest) {
-            if (incident.getId() == id) {
-                return true; // Si encuentra un incidente con el ID proporcionado, retorna true
+        var validator = repository.findAll();
+        if (validator != null) {
+            for (IncidentEntity incident : repository.findAll()) {
+                if (incident.getId() == id) {
+                    return true; // Si encuentra un incidente con el ID proporcionado, retorna true
+                }
             }
-        }
-        System.out.println("No existe el incidente con ID: " + id);
-        return false; // Si no encuentra ningún incidente con el ID proporcionado, retorna false
+            return false; // Si no encuentra ningún incidente con el ID proporcionado, retorna false
+        } else
+            return false;
     }
 }

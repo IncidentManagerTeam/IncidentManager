@@ -1,18 +1,19 @@
 package com.example.incidentmanager.Incident.service;
 
-import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.incidentmanager.Incident.domain.IncidentDTO;
 import com.example.incidentmanager.Incident.domain.IncidentEntity;
-import com.example.incidentmanager.User.domain.UserEntity;
 
 public interface IncidentService {
 
-    public List<IncidentEntity> getAll();
-    
-    public IncidentEntity getOne(int id);
-    
-    public IncidentEntity create(int id, byte[] image, String description, String state, UserEntity user);
+    public Iterable<IncidentEntity> getAll();
 
-    public IncidentEntity update(int id, byte[] image, String description, String state, UserEntity user);
+    public IncidentEntity getOne(int id);
+
+    public IncidentEntity create(IncidentDTO incident, byte[] image);
+
+    public IncidentEntity update(int id, IncidentDTO incident, byte[] image);
 
     public void delete(int id);
 

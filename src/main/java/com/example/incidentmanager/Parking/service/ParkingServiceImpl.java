@@ -1,16 +1,11 @@
 package com.example.incidentmanager.Parking.service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.example.incidentmanager.Parking.core.OneParkingEntityAlreadyExistForUser;
 import com.example.incidentmanager.Parking.domain.ParkingDTO;
 import com.example.incidentmanager.Parking.domain.ParkingEntity;
 import com.example.incidentmanager.Parking.domain.ParkingRepository;
-import com.example.incidentmanager.User.domain.UserEntity;
 import com.example.incidentmanager.User.service.UserService;
 
 @Service
@@ -79,7 +74,7 @@ public class ParkingServiceImpl implements ParkingService {
         if (validator != null) {
             ParkingEntity parkingEntity = new ParkingEntity(parking.getLicensePlate(), parking.getCompanion(),
                     parking.getState(), parking.getDate(), validator);
-            var exists = requestExists(parkingEntity);
+            var exists = requestExistsById(parkingEntity.getId());
             if (!exists)
                 return repository.save(parkingEntity);
             else
@@ -89,7 +84,7 @@ public class ParkingServiceImpl implements ParkingService {
     }
 
     // Comprueba de que la solicitud existe
-    private boolean requestExists(ParkingEntity parking) {
+    /*private boolean requestExists(ParkingEntity parking) {
         if (repository.findAll() != null) {
             for (ParkingEntity _parking : repository.findAll()) {
                 if (parking == _parking) {
@@ -99,7 +94,7 @@ public class ParkingServiceImpl implements ParkingService {
             return false;
         } else
             return false;
-    }
+    }*/
 
     private boolean requestExistsById(int id) {
         if (repository.findAll() != null) {

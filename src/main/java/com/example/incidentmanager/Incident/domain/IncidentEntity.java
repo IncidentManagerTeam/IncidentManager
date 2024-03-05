@@ -3,41 +3,66 @@ package com.example.incidentmanager.Incident.domain;
 import com.example.incidentmanager.User.domain.UserEntity;
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
+@Entity(name="incident")
 public class IncidentEntity {
     @Id
-    @NonNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Lob
     @Column(columnDefinition = "BLOB")
-    private byte[] image;
+    private String image;
 
     @NonNull
     private String description;
 
-    @NonNull
     private String state;
 
-    @OneToOne
+    @ManyToOne
     private UserEntity user;
 
+    @NonNull
+    private String classroom;
 
-    public IncidentEntity(int id, byte[] image, String description, String state, UserEntity user) {
-        this.id = id;
+   
+    @NonNull
+    private String title;
+
+    public IncidentEntity(){
+        
+    }
+    public IncidentEntity( String image, String description, String state, UserEntity user, String classroom, String title) {
         this.image = image;
         this.description = description;
         this.state = state;
         this.user = user;
+        this.classroom = classroom;
+        this.title = title;
     }
 
+    public String getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(String classroom) {
+        this.classroom = classroom;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
     public int getId() {
         return id;
     }
@@ -46,11 +71,11 @@ public class IncidentEntity {
         this.id = id;
     }
 
-    public byte[] getImage(){
+    public String getImage(){
         return image;
     }
 
-    public void setImage(byte[] image){
+    public void setImage(String image){
         this.image = image;
     }
 

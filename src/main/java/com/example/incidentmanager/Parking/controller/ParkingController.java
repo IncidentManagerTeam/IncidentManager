@@ -2,15 +2,10 @@ package com.example.incidentmanager.Parking.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
 import com.example.incidentmanager.Parking.domain.ParkingDTO;
 import com.example.incidentmanager.Parking.domain.ParkingEntity;
 import com.example.incidentmanager.Parking.service.ParkingService;
-import com.example.incidentmanager.User.core.UserAlreadyExistsException;
-import com.example.incidentmanager.User.domain.UserEntity;
-
 import java.util.NoSuchElementException;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,7 +53,7 @@ public class ParkingController {
         try {
             return this.parkingSvc.update(id,parking);
         } catch (NoSuchElementException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No eexiste el usuario con el id");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe el usuario con el id");
         }
 
     }

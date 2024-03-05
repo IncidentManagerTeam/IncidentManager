@@ -1,7 +1,5 @@
 package com.example.incidentmanager.Parking.service;
 
-import java.util.Date;
-
 import com.example.incidentmanager.Parking.domain.ParkingDTO;
 import com.example.incidentmanager.Parking.domain.ParkingEntity;
 

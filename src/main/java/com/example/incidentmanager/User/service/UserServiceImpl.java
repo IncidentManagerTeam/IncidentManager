@@ -1,14 +1,9 @@
 package com.example.incidentmanager.User.service;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
-
 import com.example.incidentmanager.User.core.UserAlreadyExistsException;
-import com.example.incidentmanager.User.domain.User;
 import com.example.incidentmanager.User.domain.UserEntity;
 import com.example.incidentmanager.User.domain.UserRepository;
 

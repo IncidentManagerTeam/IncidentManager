@@ -1,14 +1,7 @@
 package com.example.incidentmanager.Parking.domain;
 
 import java.util.Date;
-
-import org.hibernate.annotations.NotFound;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
-
 import com.example.incidentmanager.User.domain.UserEntity;
-
-// import com.example.incidentmanager.User.domain.UserEntity;
-
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
