@@ -38,10 +38,9 @@ public class IncidentServiceImpl implements IncidentService {
     @Override
     public IncidentEntity create(IncidentDTO incident, byte[] image) {
         var validator = this.userSvc.getOne(incident.getUserId());
-        String imagen = "";
         if (validator != null) {
             try {
-                IncidentEntity incidentEntity = new IncidentEntity(imagen,incident.getDescription(), incident.getState(), validator, incident.getClassroom(),incident.getTitle());
+                IncidentEntity incidentEntity = new IncidentEntity(image,incident.getDescription(), incident.getState(), validator, incident.getClassroom(),incident.getTitle());
                 return repository.save(incidentEntity);
             }catch(Exception e){
                 throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Ya existe una solicitud con al misma id");
@@ -55,7 +54,7 @@ public class IncidentServiceImpl implements IncidentService {
         boolean exist = requestExists(id);
         if (exist) {
             IncidentEntity _incident = repository.findById(id).get();
-            _incident.setImage("");
+            _incident.setImage(image);
             _incident.setDescription(incident.getDescription());
             _incident.setState(incident.getState());
             _incident.setClassroom(incident.getClassroom());

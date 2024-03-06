@@ -18,8 +18,8 @@ public class IncidentEntity {
     private int id;
 
     @Lob
-    @Column(columnDefinition = "BLOB")
-    private String image;
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] image;
 
     @NonNull
     private String description;
@@ -39,7 +39,7 @@ public class IncidentEntity {
     public IncidentEntity(){
         
     }
-    public IncidentEntity( String image, String description, String state, UserEntity user, String classroom, String title) {
+    public IncidentEntity( byte[] image, String description, String state, UserEntity user, String classroom, String title) {
         this.image = image;
         this.description = description;
         this.state = state;
@@ -71,11 +71,11 @@ public class IncidentEntity {
         this.id = id;
     }
 
-    public String getImage(){
+    public byte[] getImage(){
         return image;
     }
 
-    public void setImage(String image){
+    public void setImage(byte[] image){
         this.image = image;
     }
 
