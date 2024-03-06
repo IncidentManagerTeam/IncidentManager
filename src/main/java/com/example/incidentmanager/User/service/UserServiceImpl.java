@@ -1,6 +1,8 @@
 package com.example.incidentmanager.User.service;
 
 import java.util.List;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import com.example.incidentmanager.User.core.UserAlreadyExistsException;
@@ -12,11 +14,12 @@ public class UserServiceImpl implements UserService {
 
     private List<UserEntity> users = new ArrayList<>();
     private UserEntity userLogin;
-
+    private final PasswordEncoder encoder;
     private UserRepository repository;
 
-    public UserServiceImpl(UserRepository repository){
+    public UserServiceImpl(UserRepository repository,PasswordEncoder encoder){
         this.repository = repository;
+        this.encoder = encoder;
     }
 
 
@@ -39,8 +42,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity login(String email, String password) {
-        for (UserEntity user : users) {
-            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+        for (UserEntity user : repository.findAll()) {
+            if (user.getEmail().equals(email) && this.encoder.matches(password,user.getPassword())) {
                 userLogin = user;
                 System.out.println("Inicio de sesión:" + user.getEmail());
                 return user;

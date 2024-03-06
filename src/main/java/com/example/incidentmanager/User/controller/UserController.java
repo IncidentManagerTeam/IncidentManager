@@ -19,13 +19,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.NoSuchElementException;
 
-
-
-
 @RestController
 public class UserController {
-    
-    public UserController(UserService service){
+
+    public UserController(UserService service) {
         this.service = service;
     }
 
@@ -36,9 +33,13 @@ public class UserController {
         return this.service.getAll();
     }
 
+    @GetMapping("api/users/{id}")
+    public UserEntity getOne(@PathVariable int id) {
+        return this.service.getOne(id);
+    }
 
     @PostMapping("api/users")
-    public UserEntity createUser(@RequestBody UserEntity user){
+    public UserEntity createUser(@RequestBody UserEntity user) {
         UserEntity newUser;
         try {
             newUser = service.create(user);
@@ -49,16 +50,16 @@ public class UserController {
     }
 
     @DeleteMapping("api/users/{id}")
-    public void deletUser(@PathVariable int id){
+    public void deletUser(@PathVariable int id) {
         service.delete(id);
     }
 
     @PutMapping("api/users/{id}")
-    public UserEntity getOneUser(@PathVariable int id, @RequestBody UserEntity user) { 
+    public UserEntity getOneUser(@PathVariable int id, @RequestBody UserEntity user) {
         try {
             return service.update(id, user);
         } catch (NoSuchElementException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El usuario no existe");
-        }       
+        }
     }
 }
