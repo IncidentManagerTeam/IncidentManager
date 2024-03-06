@@ -21,6 +21,7 @@ public class DefaultSecurityConfig {
     }
     @Bean
     public SecurityFilterChain routesFilter(HttpSecurity http) throws Exception{
+        http.csrf((csrf) -> csrf.disable());
         http.authorizeHttpRequests(
             (requests) -> requests.requestMatchers(HttpMethod.POST, "/register").permitAll()
                                     .requestMatchers("/csrf").permitAll()

@@ -36,7 +36,7 @@ public class SecurityController {
     public CsrfToken getCsrfToken(CsrfToken token){
         return token;
     }
-    @GetMapping("/login")
+    @PostMapping("/login")
     public UserEntity login(@RequestBody User entity) {
         return service.login(entity.getEmail(),entity.getPassword());
     }
