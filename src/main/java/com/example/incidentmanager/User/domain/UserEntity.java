@@ -21,7 +21,7 @@ public class UserEntity {
     private Role role;
     private String password; 
 
-    protected UserEntity(){
+    public UserEntity(){
         
     }
 

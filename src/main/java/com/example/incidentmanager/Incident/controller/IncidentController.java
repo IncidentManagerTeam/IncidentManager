@@ -42,7 +42,7 @@ public class IncidentController {
 
     @PostMapping(path = "api/incident", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public IncidentEntity createOne(@RequestPart("incident") IncidentDTO incident,
-            @RequestParam("image") MultipartFile image) {
+            @RequestPart MultipartFile image) {
         try {
             InputStream imageInputStream = image.getInputStream();
             byte[] imageBytes = imageInputStream.readAllBytes();
