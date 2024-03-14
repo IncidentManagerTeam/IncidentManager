@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
             }
         }
         System.out.println("Inicio de sesión no exitoso");
-        return new UserEntity(-1, "", "", "", "", null, "");
+        return new UserEntity(-1, "", "", "", null, "");
     }
 
     @Override
@@ -92,7 +92,6 @@ public class UserServiceImpl implements UserService {
         oldUser.setId(user.getId());
         oldUser.setName(user.getName());
         oldUser.setSurname(user.getSurname());
-        oldUser.setRole(user.getRole());
         oldUser.setCourse(oldUser.getCourse());
 
         return repository.save(oldUser);
