@@ -18,7 +18,7 @@ public IncidentManagerApplication(UserService userService){
 	}
 @Override
 public void run(String... args)throws Exception{
-	UserEntity user = new UserEntity(0, "", "null", "null", "null", null, "null");
+	UserEntity user = new UserEntity(0, "", "null", "null", null, "null");
 	try {
 		this.userSvc.create(user);		
 	} catch (Exception e) { 

@@ -18,7 +18,6 @@ public class UserEntity {
     @Column(unique = true)
     private String email;
     private String course;
-    private Role role;
     private String password; 
 
     public UserEntity(){
@@ -26,13 +25,12 @@ public class UserEntity {
     }
 
 
-    public UserEntity(int id, String name, String surname, String email, String course, Role role, String password) {
+    public UserEntity(int id, String name, String surname, String email, String course, String password) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.course = course;
-        this.role = role;
         this.password = password;
     }
 
@@ -74,14 +72,6 @@ public class UserEntity {
 
     public void setCourse(String course) {
         this.course = course;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public String getPassword() {
